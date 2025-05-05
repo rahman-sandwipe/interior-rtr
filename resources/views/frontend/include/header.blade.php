@@ -45,11 +45,9 @@
                 <div class="de-flex sm-pt10">
                     <div class="de-flex-col">
                         <!-- logo begin -->
-                        <div id="logo">
-                            <a href="{{ route('home') }}" title="RTR Interior" class="logo">
-                                <img class="logo-main" src="{{ asset('images/logo.webp') }}" alt="">
-                                <img class="logo-scroll" src="{{ asset('images/logo-black.webp') }}" alt="">
-                                <img class="logo-mobile" src="{{ asset('images/images/logo.webp') }}" alt="">
+                        <div>
+                            <a href="{{ route('home') }}">
+                                <img src="{{ asset('images/partials/dark_logo_67433a63c2d8f.png') }}" width="100" alt="">
                             </a>
                         </div>
                         <!-- logo close -->
