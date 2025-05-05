@@ -22,7 +22,7 @@ class AboutsController extends Controller
             ]);
         }
         $data['abouts'] = Abouts::find(1);
-        return view('pages.backend.abouts', $data);
+        return view('backend.pages.abouts', $data);
     }
 
     public function update(Request $request) {

@@ -34,7 +34,7 @@
             <!-- page preloader close -->
 
             <!-- ======================= header begin ======================= -->
-            @include('include.frontend.header')
+            @include('frontend.include.header')
             <!-- ======================= header close ======================= -->
             <!-- content begin -->
             <div id="top"></div>
@@ -46,7 +46,7 @@
             <!-- content close -->
 
             <!-- ======================= footer begin ====================== -->
-            @include('include.frontend.footer')
+            @include('frontend.include.footer')
             <!-- ======================= footer close ====================== -->
         </div>
         

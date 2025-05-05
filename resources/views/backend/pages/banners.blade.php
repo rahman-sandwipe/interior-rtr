@@ -4,7 +4,7 @@
 <div class="content">
     <!-- Start Content-->
     <div class="container-fluid">
-        @include('include.backend.banners.title') <!-- end page title --> 
+        @include('backend.include.banners.title') <!-- end page title --> 
 
         <div class="card-box">
             <div class="card-header">
@@ -12,12 +12,12 @@
                     Service List
                     <!-- Large modal -->
                     <button type="button" class="btn btn-success waves-effect waves-light float-right" data-toggle="modal" data-target=".bs-example-modal-lg">Insert New</button>
-                    @include('include.backend.banners.create') <!-- end banner create modal -->
+                    @include('backend.include.banners.create') <!-- end banner create modal -->
                     <!-- /.modal -->
                 </div>
             </div>
             
-            @include('include.backend.banners.banners')
+            @include('backend.include.banners.banners')
         </div>
     </div>
 </div>

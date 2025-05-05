@@ -15,6 +15,7 @@ Route::controller(HomeController::class)->group(function() {
 });
 
 Route::get('/services', [ServiceController::class, 'services'])->name('services');
+Route::get('/service/{Service}', [ServiceController::class, 'serviceDetails'])->name('service.details');
 
 Route::controller(AppointmentController::class)->group(function() {
     Route::get('request/appointment',               'appointmentPage')->name('appointment.page');

@@ -5,10 +5,10 @@
 <div class="content">
     <!-- Start Content-->
     <div class="container-fluid">
-        @include('include.backend.abouts.title') <!-- end page title --> 
+        @include('backend.include.abouts.title') <!-- end page title --> 
 
         <div class="card-box">
-            @include('include.backend.abouts.abouts') <!-- end abouts -->
+            @include('backend.include.abouts.abouts') <!-- end abouts -->
         </div> <!-- end card-box -->
     </div> <!-- end container-fluid -->
 </div> <!-- end content -->

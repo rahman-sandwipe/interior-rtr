@@ -35,16 +35,15 @@
     <body>
         <div id="wrapper">      <!-- Begin page -->
 
-            @include('include.backend.header') <!-- end header -->
-
-            @include('include.backend.sidebar') <!-- end left sidebar -->
+            @include('backend.include.header') <!-- end header -->
+            @include('backend.include.sidebar') <!-- end left sidebar -->
 
             <div class="content-page">  <!-- Start Content-->
                 @yield('content')
             </div>  <!-- Start Content-->
         </div>      <!-- END wrapper -->
 
-        @include('include.backend.right-sidebar') <!-- /Right-bar -->
+        @include('backend.include.right-sidebar') <!-- /Right-bar -->
 
         <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div>

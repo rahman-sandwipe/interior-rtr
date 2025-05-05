@@ -18,7 +18,7 @@ class AuthenticateController extends Controller
      */
     public function registerPage()
     {
-        return view('pages.auth.register');
+        return view('backend.pages.auth.register');
     }
 
     /**
@@ -78,7 +78,7 @@ class AuthenticateController extends Controller
      */
     public function loginPage()
     {
-        return view('pages.auth.login');
+        return view('backend.pages.auth.login');
     }
 
     /**
@@ -159,6 +159,6 @@ class AuthenticateController extends Controller
 
     public function forgotPasswordPage()
     {
-        return view('pages.auth.forgot-password');
+        return view('backend.pages.auth.forgot-password');
     }
 }

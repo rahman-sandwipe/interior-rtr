@@ -15,27 +15,23 @@ class HomeController extends Controller
         $data['services'] = Service::latest()->get();
         $data['teams'] = User::where('role', 'admin')->latest()->get();
         
-        return view('pages.frontend.home', $data);
+        return view('frontend.pages.home', $data);
     }
 
 
     public function contacts(){
-        return view('front.pages.contacts');
+        return view('frontend.pages.contacts');
     }
 
     public function abouts(){
-        return view('front.pages.abouts');
+        return view('frontend.pages.abouts');
     }
 
     public function caseStudies(){
-        return view('front.pages.case-studies');
+        return view('frontend.pages.case-studies');
     }
 
     public function blogs(){
-        return view('front.pages.blogs');
-    }
-
-    public function faqs(){
-        return view('front.pages.faqs');
+        return view('frontend.pages.blogs');
     }
 }

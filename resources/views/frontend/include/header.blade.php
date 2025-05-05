@@ -1,5 +1,5 @@
-<header class="header-light ">
-    <div class="topbar no-sticky">
+<header class="header-light">
+    <div class="topbar no-sticky" id="topbar">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

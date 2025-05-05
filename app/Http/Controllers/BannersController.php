@@ -14,7 +14,7 @@ class BannersController extends Controller
 {
     public function index() : View {
         $data['banners'] = Banner::orderBy('id','DESC')->get();
-        return view('pages.backend.banners', $data);
+        return view('backend.pages.banners', $data);
     }
     public function store(Request $request) {
         $bd_id = IdGenerator::generate(['table'=>'banners', 'field'=>'bannerID', 'length'=>8, 'prefix'=>'BID']);
