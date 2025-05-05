@@ -16,7 +16,7 @@
                     <img src="{{ asset($service->img) }}" class="img-fluid circle mb-4 w-30 mt-50 shadow-soft wow scaleIn" alt="{{ $service->title }}">
                     <h4>{{ $service->title }}</h4>
                     <p class="no-bottom">{{ \Illuminate\Support\Str::limit($service->description, 80) }}</p>
-                    <a class="btn-main btn-light-trans mt-3" href="{{ route('service.details', $service->service_id) }}">Read More</a>
+                    <a class="btn-main btn-light-trans mt-3" href="{{ route('service.details', $service) }}">Read More</a>
                 </div>
             </div>
             @empty

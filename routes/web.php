@@ -14,9 +14,11 @@ Route::controller(HomeController::class)->group(function() {
     Route::get('/shops',             'shop')->name('shop');
 });
 
+/* ===== Services ===== */
 Route::get('/services', [ServiceController::class, 'services'])->name('services');
-Route::get('/service/{Service}', [ServiceController::class, 'serviceDetails'])->name('service.details');
+Route::get('/service/details/{service:service_id}', [ServiceController::class, 'serviceDetails'])->name('service.details');
 
+/* ===== Appointment ===== */
 Route::controller(AppointmentController::class)->group(function() {
     Route::get('request/appointment',               'appointmentPage')->name('appointment.page');
     Route::post('request/appointment',              'appointmentInsert')->name('appointment.store');

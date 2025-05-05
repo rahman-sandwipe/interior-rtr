@@ -19,8 +19,8 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="starting_price">Starting Price</label>
-                        <input type="text" class="form-control" id="starting_price" name="starting_price" placeholder="Enter Service Starting Price" required>
+                        <label for="price">Starting Price</label>
+                        <input type="text" class="form-control" id="price" name="price" placeholder="Enter Service Price" required>
                     </div>
                     
                     <div class="form-group">

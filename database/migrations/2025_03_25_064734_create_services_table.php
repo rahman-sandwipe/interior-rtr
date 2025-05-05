@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('service_id')->unique();
             $table->string('title');
             $table->string('img');
-            $table->string('starting_price');
+            $table->decimal('price', 8, 2);
             $table->string('duration');
             $table->longText('description');
             $table->enum('visibility', ['public', 'private'])->default('public');

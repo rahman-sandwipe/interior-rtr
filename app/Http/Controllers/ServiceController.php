@@ -16,8 +16,7 @@ class ServiceController extends Controller
         return view('frontend.pages.service', $data);
     }
     public function serviceDetails(Service $service){
-        $data['service'] = Service::find($service->id);
-        return view('frontend.pages.service_details', $data);
+        return view('frontend.pages.service_details', compact('service'));
     }
     // Api
     public function getServices(){
