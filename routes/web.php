@@ -1,22 +1,20 @@
 <?php
 
-use App\Http\Controllers\AppointmentController;
-use App\Http\Controllers\HomeController;
-use App\Models\Appointment;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\AppointmentController;
 
 Route::controller(HomeController::class)->group(function() {
     Route::get('/',                 'index')->name('home');
     Route::get('/about-us',         'abouts')->name('about');
-    Route::get('/services',         'services')->name('services');
     Route::get('/case-studies',     'caseStudies')->name('case-studies');
-
     Route::get('/blogs',            'blogs')->name('blog');
-    Route::get('/teams',            'teams')->name('team');
-    Route::get('/faq',              'faqs')->name('faq');
-    Route::get('/pricing',          'pricing')->name('pricing');
     Route::get('/contact-us',       'contacts')->name('contact');
+    Route::get('/shops',             'shop')->name('shop');
 });
+
+Route::get('/services', [ServiceController::class, 'services'])->name('services');
 
 Route::controller(AppointmentController::class)->group(function() {
     Route::get('request/appointment',               'appointmentPage')->name('appointment.page');

@@ -56,22 +56,23 @@
                     </div>
                     <div class="de-flex-col header-col-mid">
                         <ul id="mainmenu">
-                            <li><a class="menu-item" href="index.html">Home</a></li>
-                            <li><a class="menu-item" href="#">Services</a></li>
-                            <li><a class="menu-item" href="about.html">About Us</a></li>
-                            <li><a class="menu-item" href="study-case.html">Study Case</a></li>
-                            <li><a class="menu-item" href="blog.html">Blog</a></li>
-                            <li><a class="menu-item" href="contact.html">Contact</a></li>
+                            <li><a class="menu-item" href="{{ route('home') }}">{{ __('Home') }}</a></li>
+                            <li><a class="menu-item" href="{{ route('services') }}">{{ __('Services') }}</a></li>
+                            <li><a class="menu-item" href="{{ route('about') }}">{{ __('About Us') }}</a></li>
+                            <li><a class="menu-item" href="{{ route('case-studies') }}">{{ __('Study Case') }}</a></li>
+                            <li><a class="menu-item" href="{{ route('shop') }}">{{ __('Products') }}</a></li>
+                            <li><a class="menu-item" href="{{ route('blog') }}">{{ __('Blog') }}</a></li>
+                            <li><a class="menu-item" href="{{ route('contact') }}">{{ __('Contact') }}</a></li>
                         </ul>
                     </div>
                     <div class="de-flex-col">
                         <div class="menu_side_area">
                             <div class="h-phone xs-hide">
                                 <i class="icofont-headphone-alt"></i>
-                                <span>Need Help?</span> 055 516 4878 / 058 681 3322
+                                <span>Need Help?</span>058 681 3322
+                                {{-- <span>Need Help?</span>055 516 4878 --}}
                             </div>
-                            <a href="appointment.html" class="btn-main d-xl-block d-md-none">Make
-                                Appointment</a>
+                            <a href="{{ route('appointment.page') }}" class="btn-main d-xl-block d-md-none">Make Appointment</a>
                             <span id="menu-btn"></span>
                         </div>
                     </div>

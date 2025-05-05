@@ -27,10 +27,6 @@ class HomeController extends Controller
         return view('front.pages.abouts');
     }
 
-    public function services(){
-        return view('front.pages.services');
-    }
-
     public function caseStudies(){
         return view('front.pages.case-studies');
     }

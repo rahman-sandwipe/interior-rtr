@@ -11,6 +11,12 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ServiceController extends Controller
 {
+    public function services(){
+        return view('pages.frontend.service');
+    }
+
+
+
     public function index()
     {
         $data['services'] = Service::all();        // Fetch all services from the database
