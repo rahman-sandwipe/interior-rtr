@@ -1,0 +1,104 @@
+/* Auth CSS */
+/* Login page && Register page */
+.container .account-box {
+    justify-content: center;
+    align-items: center;
+    margin: 170px auto 50px auto;
+    padding: 30px;
+    width: 480px;
+    background: var(--bg-color-even);
+    box-shadow: 0 0 50px rgba(0, 0, 0, .3);
+    -webkit-box-shadow: 0 0 50px rgba(0, 0, 0, .3);
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.account-box .account-logo {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.account-box .account-logo img {
+    width: 250px;
+    height: auto;
+}
+
+.account-box .account-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text-muted-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.account-box .account-subtitle {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+form .form-group {
+    margin-bottom: 15px;
+}
+form .form-group label {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+form .form-group .form-control {
+    font-size: 16px;
+    font-weight: 400;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+form .form-group .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+}
+form .form-group .form-control.error {
+    border-color: var(--danger-color);
+    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+}
+.checkbox input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background-color: #fff;
+    border: solid 1px var(--bg-color-even);
+}
+.checkmark {
+    position: absolute;
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 400;
+}
+.checkbox {
+    font-weight: 400;
+    margin-bottom: 0px;
+    position: relative;
+    cursor: pointer;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+}
+.checkbox input[type="checkbox"]:checked {
+    background-color: var(--primary-color);
+    border: solid 1px var(--primary-color);
+}
+ 
+.checkbox input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}

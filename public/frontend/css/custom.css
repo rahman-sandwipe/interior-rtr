@@ -1,0 +1,30 @@
+
+/* Password Field Styling */
+.form-group.password-group {
+    margin-top: 15px;
+    position: relative;
+}
+
+.form-group.password-group label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Forgot Password Link Styling */
+.forgot-password {
+    text-align: right;
+}
+
+/* Button Styling */
+
+/* Layout for label and forgot password */
+.password-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.password-header label {
+    margin-bottom: 0;
+}
