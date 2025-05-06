@@ -4,15 +4,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ContactController;
 
 Route::controller(HomeController::class)->group(function() {
     Route::get('/',                 'index')->name('home');
     Route::get('/about-us',         'abouts')->name('about');
     Route::get('/case-studies',     'caseStudies')->name('case-studies');
     Route::get('/blogs',            'blogs')->name('blog');
-    Route::get('/contact-us',       'contacts')->name('contact');
     Route::get('/shops',             'shop')->name('shop');
 });
+
+/* ===== Contact ===== */
+Route::get('/contact-us',      [ContactController::class, 'contacts'])->name('contact');
+Route::post('/contact-us',     [ContactController::class, 'contactStore'])->name('contact.store');
 
 /* ===== Services ===== */
 Route::get('/services', [ServiceController::class, 'services'])->name('services');
