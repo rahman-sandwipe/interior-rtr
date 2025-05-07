@@ -10,8 +10,8 @@ Route::controller(HomeController::class)->group(function() {
     Route::get('/',                 'index')->name('home');
     Route::get('/about-us',         'abouts')->name('about');
     Route::get('/case-studies',     'caseStudies')->name('case-studies');
-    Route::get('/blogs',            'blogs')->name('blog');
-    Route::get('/shops',             'shop')->name('shop');
+    Route::get('/blogs',            'blog')->name('blog');
+    Route::get('/shops',            'shop')->name('shop');
 });
 
 /* ===== Contact ===== */
@@ -25,8 +25,8 @@ Route::get('/contact-us',      [ContactController::class, 'contacts'])->name('co
 
 
 /* ===== Services ===== */
-Route::get('/services', [ServiceController::class, 'servicesPages'])->name('services');
-Route::get('/service/details/{service:service_id}', [ServiceController::class, 'serviceDetails'])->name('service.details');
+Route::get('/services',                     [ServiceController::class, 'servicesPages'])->name('services');
+Route::get('/service-details/{service}',    [ServiceController::class, 'serviceDetails'])->name('service.details');
 
 /* ===== Appointment ===== */
 Route::controller(AppointmentController::class)->group(function() {

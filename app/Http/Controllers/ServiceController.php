@@ -11,21 +11,16 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ServiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function servicesPages(){
-        return view('frontend.pages.service');
+        return view('frontend.pages.servicePage');
     }
+    public function serviceDetails(Service $service){
+        return view('frontend.pages.serviceSinglePage', compact('service'));
+    }
+    /** ======================== && ======================== **/
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    /** ======================== && ======================== **/
     public function servicePage(){
         return view('backend.pages.servicePage');
     }
@@ -37,7 +32,7 @@ class ServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getServices(){
-        $data['services'] = Service::latest()->get();
+        $data['services'] = Service::all()->toArray();
         return response()->json($data);
     }
 
