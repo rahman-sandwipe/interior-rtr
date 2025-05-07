@@ -5,17 +5,19 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProductController;
+use App\Models\Product;
 
 Route::controller(HomeController::class)->group(function() {
     Route::get('/',                 'index')->name('home');
     Route::get('/about-us',         'abouts')->name('about');
     Route::get('/case-studies',     'caseStudies')->name('case-studies');
     Route::get('/blogs',            'blog')->name('blog');
-    Route::get('/shops',            'shop')->name('shop');
 });
 
 /* ===== Contact ===== */
 Route::get('/contact-us',      [ContactController::class, 'contacts'])->name('contact');
+Route::get('/shop',            [ProductController::class, 'shop'])->name('shop');
 
 
 
