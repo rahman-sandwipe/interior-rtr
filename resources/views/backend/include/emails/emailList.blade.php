@@ -17,13 +17,13 @@
                         </div>
                         {{-- <a href="apps-invoice-create.html" class="btn btn-primary">
                             <i class="ri-add-line me-1"></i>
-                            Add Contacts
+                            Add emails
                         </a> --}}
                     </div><!-- end d-flex -->
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-hover text-nowrap" id="contactTable">
+                    <table class="table table-hover text-nowrap" id="emailTable">
                         <thead class="bg-light-subtle" >
                             <tr>
                                 <th class="text-uppercase text-muted">#ID || Support ID</th>
@@ -70,49 +70,49 @@
 <script>
     $(document).ready(function() {
         $.ajax({
-            url: '/api/contactList',
+            url: '/api/emailList',
             method: 'GET',
             success: function(response) {
                 let rows = '';
-                response.contacts.forEach(function(contact) {
+                response.emails.forEach(function(email) {
                     rows += `<tr>
-                        <td>${contact.id} || ${contact.contact_id}</td>
-                        <td>${contact.name}</td>
-                        <td>${contact.subject}</td>
+                        <td>${email.id} || ${email.contact_id}</td>
+                        <td>${email.name}</td>
+                        <td>${email.subject}</td>
                         <td class="text-center" width="150">
-                            <button class="btn btn-primary btn-sm waves-effect waves-light view-contact" data-id="${contact.id}">View</button>
-                            <a href="/contact/${contact.id}" class="btn btn-danger btn-sm waves-effect waves-light">Delete</a>
+                            <button class="btn btn-primary btn-sm waves-effect waves-light view-email" data-id="${email.id}">View</button>
+                            <a href="/email/${email.id}" class="btn btn-danger btn-sm waves-effect waves-light">Delete</a>
                         </td>
                     </tr>`;
                 });
-                $('#contactTable tbody').html(rows);
+                $('#emailTable tbody').html(rows);
             },
             error: function(err) {
-                alert('Error fetching contacts');
+                alert('Error fetching emails');
                 console.error(err);
             }
         });
     });
 
-    $(document).on('click', '.view-contact', function() {
-        var contactId = $(this).data('id');
+    $(document).on('click', '.view-email', function() {
+        var emailId = $(this).data('id');
 
         $.ajax({
-            url: '/api/contactDetails/' + contactId,
+            url: '/api/emailDetails/' + emailId,
             method: 'GET',
             success: function(response) {
-                $('#modalContactContent').html(`
+                $('#modalemailContent').html(`
                     <p><strong>ID:</strong> ${response.id}</p>
                     <p><strong>Message ID:</strong> ${response.contact_id}</p>
                     <p><strong>Name:</strong> ${response.name}</p>
                     <p><strong>Email:</strong> ${response.email}</p>
                     <p><b>Message:</b> ${response.message}</p>
                 `);
-                var modal = new bootstrap.Modal(document.getElementById('contactModal'));
+                var modal = new bootstrap.Modal(document.getElementById('emailModal'));
                 modal.show();
             },
             error: function(err) {
-                alert('Failed to fetch contact details.');
+                alert('Failed to fetch email details.');
                 console.error(err);
             }
         });
