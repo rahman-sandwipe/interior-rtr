@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\AboutsController;
-use App\Http\Controllers\BannersController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Auth\DashboardController;
@@ -36,7 +36,7 @@ Route::controller(AuthenticateController::class)->middleware('guest')->group(fun
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard',    [DashboardController::class, 'dashboard'])->name('dashboard'); /* Display dashboard page */
     Route::post('/logout',      [AuthenticateController::class, 'logout'])->name('logout');    /* Display dashboard page */
-    Route::get('/contacts',     [ContactController::class, 'contactPage'])->name('contact.index');             /* Display contact page */
+    Route::get('/emails',       [ContactController::class, 'emailPage'])->name('email.index');             /* Display contact page */
 
 
 
@@ -57,8 +57,9 @@ Route::middleware('auth')->group(function () {
         Route::delete('/service/{id}',        'destroy')->name('service.destroy');
     });     // Service Route
     
-    Route::controller(BannersController::class)->group(function(){
-        Route::get('/banners',                'index')->name('banner.index');
+    Route::controller(BannerController::class)->group(function(){
+        Route::get('/banners',                'bannerPage')->name('banner.index');
+        Route::get('/banners/create',        'create')->name('banner.create');
         Route::post('/banners',               'store')->name('banner.store');
         Route::get('/banners/{id}',           'edit')->name('banner.edit');
         Route::put('/banners/{id}',           'update')->name('banner.update');

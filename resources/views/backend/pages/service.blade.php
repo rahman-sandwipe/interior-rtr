@@ -1,27 +1,20 @@
 @extends('layouts.app')
 @section('title') Services @endsection
 @section('content')
-<div class="content">
-    <!-- Start Content-->
-    <div class="container-fluid">
-        @include('backend.include.service.page-title') <!-- end page title --> 
-
-        <div class="card-box">
-            <div class="card-header">
-                <div class="header-title">
-                    Service List
-                    <!-- Large modal -->
-                    <button type="button" class="btn btn-success waves-effect waves-light float-right" data-toggle="modal" data-target=".bs-example-modal-lg">Insert New</button>
-                    @include('backend.include.service.service-create') <!-- end service create modal -->
-                    <!-- /.modal -->
-                </div>
+    @include('backend.include.service.page-title') <!-- end page title --> 
+    <div class="card-box">
+        <div class="card-header">
+            <div class="header-title">
+                Service List
+                <!-- Large modal -->
+                <button type="button" class="btn btn-success waves-effect waves-light float-right" data-toggle="modal" data-target=".bs-example-modal-lg">Insert New</button>
+                @include('backend.include.service.service-create') <!-- end service create modal -->
+                <!-- /.modal -->
             </div>
-            
-            @include('backend.include.service.service-list')
         </div>
+        
+        @include('backend.include.service.service-list')
     </div>
-</div>
-<!-- end content -->
 @endsection
 @section('scripts')
 <script>

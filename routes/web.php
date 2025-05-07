@@ -39,3 +39,7 @@ Route::controller(AppointmentController::class)->group(function() {
 
 // Authentication Route inclode in [auth.php] file
 require __DIR__.'/auth.php';
+
+Route::get('/test', function () {
+    return view('layouts.masterapp');
+});

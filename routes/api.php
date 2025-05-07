@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ContactController;
 
     /*
@@ -17,4 +18,8 @@ use App\Http\Controllers\ContactController;
     Route::group(['middleware' => ['api']], function () {
         Route::get('/contactList',                  [ContactController::class,'contactList'])->name('contactList');
         Route::get('/contactDetails/{contactMsg}',  [ContactController::class, 'contactDetails']);
+        Route::post('/contactReply/{contactMsg}',   [ContactController::class, 'contactReply']);
+
+        Route::get('/bannerList',                   [BannerController::class, 'bannerList']);
+        Route::get('/bannerDetails/{banner}',       [BannerController::class, 'bannerDetails']);
     });

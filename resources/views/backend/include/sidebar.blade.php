@@ -17,12 +17,7 @@
                         <span> Banners </span>
                     </a>
                 </li>
-                <li>    <!-- About -->
-                    <a href="{{ route('abouts.index') }}">
-                        <i class="fe-map"></i>
-                        <span>Abouts </span>
-                    </a>
-                </li>
+
                 <li>    <!-- Services -->
                     <a href="{{ Route('service.index') }}">
                         <i class="fe-service"></i>
@@ -32,7 +27,7 @@
 
                 <li>
                     <a href="{{ Route('contact.index') }}">
-                        <i class="fe-box"></i>
+                        <i class="fe-telephone"></i>
                         <span>{{ __('Contacts') }}</span>
                     </a>
                 </li>

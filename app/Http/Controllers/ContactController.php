@@ -61,8 +61,8 @@ class ContactController extends Controller
      * @return void
      * 
      */
-    public function contactPage(){
-        return view('backend.pages.contacts');
+    public function emailPage(){
+        return view('backend.pages.emailPage');
     }
 
     /**
@@ -88,7 +88,7 @@ class ContactController extends Controller
      */
     public function contactDetails(ContactMsg $contactMsg) {
         try {
-            return response()->json($contactMsg->toArray()); 
+            return response()->json($contactMsg->toArray());
         } catch(\Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
