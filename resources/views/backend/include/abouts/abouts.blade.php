@@ -1,7 +1,7 @@
 
 <div class="row">
     <div class="col-12">
-        <form action="{{ route('abouts.index') }}" method="POST" enctype="multipart/form-data">
+        <form action="" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="title">Title</label>

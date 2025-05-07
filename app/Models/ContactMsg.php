@@ -15,7 +15,7 @@ class ContactMsg extends Model
      * @var array
      */
     protected $fillable = [
-        'contact_id',
+        'email_id',
         'name',
         'phone',
         'email',

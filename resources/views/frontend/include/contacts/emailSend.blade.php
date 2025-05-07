@@ -1,6 +1,6 @@
 
 <div class="p-4 bg-grey rounded-10px">
-    <form name="contactForm" id="contact_form" class="position-relative z1000" method="post" action="{{ route('contact.store') }}">
+    <form name="contactForm" id="contact_form" class="position-relative z1000" method="post" action="{{ route('emailSend') }}">
         @csrf
         <div class="field-set">
             <input type="text" name="name" id="name" class="form-control no-border" placeholder="Your Name" required>

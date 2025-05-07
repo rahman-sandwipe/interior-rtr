@@ -11,32 +11,59 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ServiceController extends Controller
 {
-    public function services(){
-        $data['services'] = Service::all();
-        return view('frontend.pages.service', $data);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function servicesPages(){
+        return view('frontend.pages.service');
     }
-    public function serviceDetails(Service $service){
-        return view('frontend.pages.service_details', compact('service'));
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function servicePage(){
+        return view('backend.pages.servicePage');
     }
-    // Api
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function getServices(){
-        return Service::orderBy('id', 'asc')->get();
+        $data['services'] = Service::latest()->get();
+        return response()->json($data);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getServiceDetails(Service $service){
+        return response()->json($service->toArray());
     }
 
 
-    public function index()
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function serviceInsert(Request $request)
     {
-        $data['services'] = Service::all();        // Fetch all services from the database
-        return view('backend.pages.service', $data);        // Return the view with the services data
-    }
-
-    public function store(Request $request)
-    {
-        // Create a new service
-        $serviceID = IdGenerator::generate(['table' => 'services','field' => 'service_id','length' => 10,'prefix' => 'SVC-',]);
+        $serviceID = IdGenerator::generate(['table' => 'services','field' => 'service_id','length' => 10,'prefix' => 'SID',]);
         $data = $request->all();
         $data['service_id'] = $serviceID;
-        $data['user_id'] = Auth::id();
+        $data['user_id'] = Auth::user()->id;
         // Get the authenticated user's ID
         // ================ Image ================ //
          if($request->hasFile('img')) {

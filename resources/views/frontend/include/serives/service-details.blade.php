@@ -6,7 +6,7 @@
             <div class="col-lg-6">
                 <div class="subtitle wow fadeInUp mb-3">Our Services</div>
                 <h2 class="wow fadeInUp" data-wow-delay=".2s">{{ $service->title }}</h2>
-                <p class="lead">{{ $service->description }}</p>
+                <p class="lead">{{ Illuminate\Support\Str::limit($service->description, 80) }}</p>
 
                 <div class="fs-14 text-dark fw-500">Start from</div>
                 <div class="mb-3">

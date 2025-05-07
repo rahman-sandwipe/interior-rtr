@@ -42,6 +42,18 @@
                     <span class="menu-text"> Banners </span>
                 </a>
             </li>
+            <li class="side-nav-item">
+                <a href="{{ route('service.index') }}" class="side-nav-link">
+                    <span class="menu-icon"><i data-lucide="airplay"></i></span>
+                    <span class="menu-text"> Services </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a href="{{ route('about.index') }}" class="side-nav-link">
+                    <span class="menu-icon"><i data-lucide="airplay"></i></span>
+                    <span class="menu-text"> Abouts </span>
+                </a>
+            </li>
 
 
 

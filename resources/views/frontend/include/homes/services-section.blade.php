@@ -22,7 +22,7 @@
                     <img src="{{ asset($service->img) }}" class="img-fluid circle mb-4 w-30 mt-50 shadow-soft wow scaleIn"
                     data-wow-delay=".2s" alt="">
                     <h4>{{ $service->title }}</h4>
-                    <p class="no-bottom">{!! $service->description !!}</p>
+                    <p class="no-bottom">{!! Illuminate\Support\Str::limit($service->description, 80) !!}</p>
                     <a class="btn-main btn-main btn-light-trans mt-3" href="#">Our Services</a>
                 </div>
             </div>

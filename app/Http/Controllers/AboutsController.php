@@ -10,7 +10,13 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class AboutsController extends Controller
 {
-    public function index() {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function aboutsPage()
+    {
         if(!Abouts::where('id', 1)->exists()) {
             Abouts::create([
                 'title' => 'About Us',
@@ -22,7 +28,7 @@ class AboutsController extends Controller
             ]);
         }
         $data['abouts'] = Abouts::find(1);
-        return view('backend.pages.abouts', $data);
+        return view('backend.pages.aboutPage', $data);
     }
 
     public function update(Request $request) {

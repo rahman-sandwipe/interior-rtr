@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\Auth\AuthenticateController;
+use App\Http\Controllers\EmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,26 +37,13 @@ Route::controller(AuthenticateController::class)->middleware('guest')->group(fun
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard',    [DashboardController::class, 'dashboard'])->name('dashboard'); /* Display dashboard page */
     Route::post('/logout',      [AuthenticateController::class, 'logout'])->name('logout');    /* Display dashboard page */
-    Route::get('/emails',       [ContactController::class, 'emailPage'])->name('email.index');             /* Display contact page */
+    
+    Route::get('/emails',       [EmailController::class,        'emailPage'])->name('email.index'); /* Display email page */
+    Route::get('/abouts',       [AboutsController::class,       'aboutsPage'])->name('about.index'); /* Display abouts page */
+    Route::get('/contacts',     [ContactController::class,      'contactPage'])->name('contact.index'); /* Display contact page */
+    Route::get('/service',      [ServiceController::class,      'servicePage'])->name('service.index'); /* Display service page */
+    
 
-
-
-
-    Route::controller(AboutsController::class)->group(function(){
-        Route::get('/abouts',                'index')->name('abouts.index');
-        Route::post('/abouts',               'update')->name('abouts.update');
-        Route::get('/abouts/{id}',           'show')->name('abouts.show');
-        Route::put('/abouts/{id}',           'update')->name('abouts.update');
-        Route::delete('/abouts/{id}',        'destroy')->name('abouts.destroy');
-    });     // Abouts Route
-
-    Route::controller(ServiceController::class)->group(function(){
-        Route::get('/service',                'index')->name('service.index');
-        Route::post('/service',               'store')->name('service.store');
-        Route::get('/service/{id}',           'show')->name('service.show');
-        Route::put('/service/{id}',           'update')->name('service.update');
-        Route::delete('/service/{id}',        'destroy')->name('service.destroy');
-    });     // Service Route
     
     Route::controller(BannerController::class)->group(function(){
         Route::get('/banners',                'bannerPage')->name('banner.index');

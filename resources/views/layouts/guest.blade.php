@@ -20,6 +20,7 @@
         <link id="colors" href="{{ asset('frontend/css/colors/scheme-01.css') }}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="{{ asset('custom/auth.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('custom/style.css') }}" type="text/css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
 
     <body>

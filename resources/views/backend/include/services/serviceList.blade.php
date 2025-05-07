@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header border-bottom card-tabs d-flex flex-wrap align-items-center gap-2">
                     <div class="flex-grow-1">
-                        <h4 class="header-title">Emails</h4>
+                        <h4 class="header-title">Services</h4>
                     </div>
 
                     <div class="d-flex flex-wrap flex-lg-nowrap gap-2">
@@ -15,23 +15,20 @@
                                 <i class="ri-search-line position-absolute top-50 translate-middle-y start-0 ms-2"></i>
                             </div>
                         </div>
-                        {{-- <a href="apps-invoice-create.html" class="btn btn-primary">
-                            <i class="ri-add-line me-1"></i>
-                            Add emails
-                        </a> --}}
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal">Add New</button>
                     </div><!-- end d-flex -->
                 </div>
 
                 <div class="table-responsive p-2">
-                    <table class="table table-hover text-nowrap" id="emailTable">
-                        <thead class="bg-light-subtle">
+                    <table class="table table-hover text-nowrap" id="serviceTable">
+                        <thead class="bg-light-subtle" >
                             <tr>
-                                <th class="text-uppercase text-muted">#ID || Support ID</th>
-                                <th class="text-uppercase text-muted">Name</th>
-                                <th class="text-uppercase text-muted">Subject</th>
+                                <th class="text-uppercase text-muted">#ID || service ID</th>
+                                <th class="text-uppercase text-muted">Title</th>
+                                <th class="text-uppercase text-muted">Visibility</th>
                                 <th class="text-center text-uppercase text-muted" width="150">Action</th>
                             </tr>
-                        </thead> <!-- end table-head -->
+                        </thead>    <!-- end table-head -->
 
                         <tbody>
                             <!-- content -->
@@ -63,53 +60,73 @@
             </div> <!-- end card-->
         </div> <!-- end col -->
     </div>
+
 </div> <!-- container -->
+
+</div>
 <script>
     $(document).ready(function() {
         $.ajax({
-            url: '/api/emailList',
+            url: '/api/getServices',
             method: 'GET',
             success: function(response) {
                 let rows = '';
-                response.emails.forEach(function(email) {
+                response.services.forEach(function(service) {
                     rows += `<tr>
-                        <td>${email.id} || ${email.email_id}</td>
-                        <td>${email.name}</td>
-                        <td>${email.subject}</td>
+                        <td>${service.id} || ${service.service_id }</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <img src="${service.img}" alt="${service.title}"  class="img-fluid" width="60">
+                                <h6 class="fs-14 mb-0">${service.title}</h6>
+                            </div>
+                        </td>
+                        <td class="text-center text-capitalize" width="100">${service.visibility}</td>
                         <td class="text-center" width="150">
-                            <button class="btn btn-primary btn-sm waves-effect waves-light view-email" data-id="${email.id}">View</button>
-                            <a href="/email/${email.id}" class="btn btn-danger btn-sm waves-effect waves-light">Delete</a>
+                            <button class="btn btn-primary btn-sm waves-effect waves-light view-service" data-id="${service.id}">View</button>
+                            <a href="/service/${service.id}" class="btn btn-danger btn-sm waves-effect waves-light">Delete</a>
                         </td>
                     </tr>`;
                 });
-                $('#emailTable tbody').html(rows);
+                $('#serviceTable tbody').html(rows);
             },
             error: function(err) {
-                alert('Error fetching emails');
+                alert('Error fetching services');
                 console.error(err);
             }
         });
     });
 
-    $(document).on('click', '.view-email', function() {
-        var emailId = $(this).data('id');
+    $(document).on('click', '.view-service', function() {
+        var serviceId = $(this).data('id');
 
         $.ajax({
-            url: '/api/emailDetails/' + emailId,
+            url: '/api/getService/' + serviceId,
             method: 'GET',
             success: function(response) {
-                $('#modalemailContent').html(`
-                    <p><strong>ID:</strong> ${response.id}</p>
-                    <p><strong>Email ID:</strong> ${response.email_id}</p>
-                    <p><strong>Name:</strong> ${response.name}</p>
-                    <p><strong>Email:</strong> ${response.email}</p>
-                    <p><b>Message:</b> ${response.message}</p>
+                $('#modalServiceContent').html(`
+                    <p><strong>service ID:</strong> ${response.service_id }</p>
+                    <p><strong>Title:</strong> ${response.title}</p>
+                    <p><strong>Description:</strong> ${response.description}</p>
+                    <div class="d-flex align-items-center">
+                        <img src="${response.img}" alt="${response.title}" class="img-fluid" width="450">
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <p><strong>Visibility:</strong> ${response.visibility}</p>
+                        </div>
+                        <div class="col-4">
+                            <p><strong>Price:</strong> ${response.price}</p>
+                        </div>
+                        <div class="col-4">
+                            <p><strong>Duration:</strong> ${response.duration}</p>
+                        </div>
+                    </div>
                 `);
-                var modal = new bootstrap.Modal(document.getElementById('emailModal'));
+                var modal = new bootstrap.Modal(document.getElementById('serviceModal'));
                 modal.show();
             },
             error: function(err) {
-                alert('Failed to fetch email details.');
+                alert('Failed to fetch service details.');
                 console.error(err);
             }
         });

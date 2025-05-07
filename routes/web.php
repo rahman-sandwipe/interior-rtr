@@ -16,10 +16,16 @@ Route::controller(HomeController::class)->group(function() {
 
 /* ===== Contact ===== */
 Route::get('/contact-us',      [ContactController::class, 'contacts'])->name('contact');
-Route::post('/contact-us',     [ContactController::class, 'contactStore'])->name('contact.store');
+
+
+
+
+
+
+
 
 /* ===== Services ===== */
-Route::get('/services', [ServiceController::class, 'services'])->name('services');
+Route::get('/services', [ServiceController::class, 'servicesPages'])->name('services');
 Route::get('/service/details/{service:service_id}', [ServiceController::class, 'serviceDetails'])->name('service.details');
 
 /* ===== Appointment ===== */
