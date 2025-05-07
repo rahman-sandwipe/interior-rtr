@@ -14,6 +14,7 @@
         <link href="{{ asset('backend/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('backend/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <style>
             .preview {
                 width: 120px;
@@ -56,8 +57,6 @@
         <script src="{{ asset('backend/js/pages/dashboard.init.js') }}"></script>
         <!-- App js -->
         <script src="{{ asset('backend/js/app.min.js') }}"></script>
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         @yield('scripts')   <!-- page js -->
     </body>
 </html>

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AboutsController;
 use App\Http\Controllers\BannersController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\Auth\AuthenticateController;
@@ -33,8 +34,12 @@ Route::controller(AuthenticateController::class)->middleware('guest')->group(fun
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard',                 [DashboardController::class, 'dashboard'])->name('dashboard');
-    Route::post('/logout',                   [AuthenticateController::class, 'logout'])->name('logout');
+    Route::get('/dashboard',    [DashboardController::class, 'dashboard'])->name('dashboard'); /* Display dashboard page */
+    Route::post('/logout',      [AuthenticateController::class, 'logout'])->name('logout');    /* Display dashboard page */
+    Route::get('/contacts',     [ContactController::class, 'contactPage'])->name('contact.index');             /* Display contact page */
+
+
+
 
     Route::controller(AboutsController::class)->group(function(){
         Route::get('/abouts',                'index')->name('abouts.index');

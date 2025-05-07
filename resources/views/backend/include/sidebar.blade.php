@@ -31,9 +31,9 @@
                 </li>
 
                 <li>
-                    <a href="javascript: void(0);">
+                    <a href="{{ Route('contact.index') }}">
                         <i class="fe-box"></i>
-                        <span> Departments </span>
+                        <span>{{ __('Contacts') }}</span>
                     </a>
                 </li>
 
