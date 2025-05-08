@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Route;
 
 
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\AboutsController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\Auth\AuthenticateController;
-use App\Http\Controllers\EmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/contacts',     [ContactController::class,      'contactPage'])->name('contact.index'); /* Display contact page */
     Route::get('/service',      [ServiceController::class,      'servicePage'])->name('service.index'); /* Display service page */
     
+    Route::resource('products', ProductController::class); /* Product resource route */
 
     
     Route::controller(BannerController::class)->group(function(){

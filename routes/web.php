@@ -17,7 +17,7 @@ Route::controller(HomeController::class)->group(function() {
 
 /* ===== Contact ===== */
 Route::get('/contact-us',      [ContactController::class, 'contacts'])->name('contact');
-Route::get('/shop',            [ProductController::class, 'shop'])->name('shop');
+Route::get('/shops',           [ProductController::class, 'shop'])->name('shop');
 
 
 

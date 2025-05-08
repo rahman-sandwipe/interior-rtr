@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('otp')->nullable();
             $table->enum('visibility', ['public', 'private'])->default('public');
-            $table->enum('role', ['admin', 'user'])->default('user');
+            $table->enum('role', ['admin', 'cashier', 'manager', 'customer'])->default('customer');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

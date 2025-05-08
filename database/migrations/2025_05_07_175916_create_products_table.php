@@ -13,24 +13,18 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('sku')->unique();                                // Stock Keeping Unit
-            $table->string('category');                                     // Product Category
-            $table->string('title');                                        // Product Name
-            $table->string('description');                                  // Product Description
-            $table->decimal('weight', 8, 2);                                // Product Weight
-            $table->integer('quantity');                                    // Product Quantity
-            $table->integer('stock');                                       // Product Stock
-            $table->decimal('cost_price', 8, 2);                            // Product Cost Price
-            $table->decimal('saleing_price', 8, 2);                         // Product Saleing Price
-            $table->decimal('tax', 8, 2);                                   // Product Tax
-            $table->enum('descount_type', ['flat', 'percentage']);          // Product Descount
-            $table->decimal('descount', 8, 2);                              // Product Descount
-            $table->decimal('profit', 8, 2);                                // Product Profit
-            $table->string('images');                                       // Product Image
-            $table->enum('visibility', ['public', 'private'])->default('public');   // Product Visibility
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
-            $table->text('tags');                                          // Product Tags
-            $table->timestamps();              // Timestamps
+            $table->string('product_id')->unique();
+            $table->string('barcode')->unique();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->decimal('price', 10, 2);
+            $table->decimal('cost', 10, 2)->nullable();
+            $table->integer('quantity')->default(0);
+            $table->foreignId('category_id')->constrained();
+            $table->foreignId('supplier_id')->nullable()->constrained();
+            $table->string('image')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
         });
     }
 
