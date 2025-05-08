@@ -9,9 +9,9 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function categoryPage()
     {
-        //
+        return view('backend.pages.categoryPage');
     }
 
     /**

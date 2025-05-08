@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\Auth\AuthenticateController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/service',      [ServiceController::class,      'servicePage'])->name('service.index'); /* Display service page */
     
     Route::resource('products', ProductController::class); /* Product resource route */
-
+    
+    Route::get('/categories',   [CategoryController::class,     'categoryPage'])->name('category.index'); /* Display category page */
     
     Route::controller(BannerController::class)->group(function(){
         Route::get('/banners',                'bannerPage')->name('banner.index');
