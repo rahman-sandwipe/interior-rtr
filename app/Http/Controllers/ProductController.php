@@ -6,22 +6,18 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Picqer\Barcode\BarcodeGeneratorHTML;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     public function shop(){
-        return view('shop');
+        return view('frontend.pages.shopPages');
     }
 
     public function index()
     {
-        $products = Product::with(['category', 'supplier'])
-            ->latest()
-            ->filter(request(['search']))
-            ->paginate(10);
-        
-        return view('backend.products.index', compact('products'));
+        return view('backend.pages.productsPage');
     }
 
     public function create()
@@ -119,13 +115,13 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
     }
 
-    // public function generateBarcode(Product $product)
-    // {
-    //     $generator = new BarcodeGeneratorHTML();
-    //     $barcode = $generator->getBarcode($product->barcode, $generator::TYPE_CODE_128);
+    public function generateBarcode(Product $product)
+    {
+        $generator = new BarcodeGeneratorHTML();
+        $barcode = $generator->getBarcode($product->barcode, $generator::TYPE_CODE_128);
         
-    //     return view('products.barcode', compact('product', 'barcode'));
-    // }
+        return view('products.barcode', compact('product', 'barcode'));
+    }
 
     protected function generateUniqueBarcode()
     {

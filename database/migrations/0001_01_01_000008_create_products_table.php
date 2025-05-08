@@ -13,18 +13,20 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('product_id')->unique();
+            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('supplier_id');
             $table->string('barcode')->unique();
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->decimal('cost', 10, 2)->nullable();
             $table->integer('quantity')->default(0);
-            $table->foreignId('category_id')->constrained();
-            $table->foreignId('supplier_id')->nullable()->constrained();
             $table->string('image')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
         });
     }
 

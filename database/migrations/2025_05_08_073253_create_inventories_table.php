@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained();
+            $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
             $table->enum('type', ['purchase', 'sale', 'adjustment', 'return']);
             $table->text('remarks')->nullable();
-            $table->foreignId('user_id')->constrained(); // Who performed the action
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Who performed the action
+            $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
         });
     }
