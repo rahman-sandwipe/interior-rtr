@@ -37,6 +37,25 @@ Route::controller(AuthenticateController::class)->middleware('guest')->group(fun
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/categories',   [CategoryController::class, 'categoryPage'])->name('category.index'); /* Display category page */
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::middleware('auth')->group(function () {
     Route::get('/dashboard',    [DashboardController::class, 'dashboard'])->name('dashboard'); /* Display dashboard page */
     Route::post('/logout',      [AuthenticateController::class, 'logout'])->name('logout');    /* Display dashboard page */
     
@@ -47,7 +66,6 @@ Route::middleware('auth')->group(function () {
     
     Route::resource('products', ProductController::class); /* Product resource route */
     
-    Route::get('/categories',   [CategoryController::class,     'categoryPage'])->name('category.index'); /* Display category page */
     
     Route::controller(BannerController::class)->group(function(){
         Route::get('/banners',                'bannerPage')->name('banner.index');

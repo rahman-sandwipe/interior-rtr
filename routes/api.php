@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\CategoryController;
 
     /*
     |--------------------------------------------------------------------------
@@ -29,4 +30,15 @@ use App\Http\Controllers\ServiceController;
         Route::get('/getServices',                  [ServiceController::class, 'getServices']);
         Route::get('/getService/{service}',         [ServiceController::class, 'getServiceDetails']);
         Route::post('/service-insert',              [ServiceController::class, 'serviceInsert'])->name('serviceInsert');
+    
+    
+        /** Category API Routes */
+        Route::controller(CategoryController::class)->group(function(){
+            Route::get('/categoryList',                     'categoryList')->name('categoryList');
+            Route::post('/category-insert',                 'categoryInsert')->name('categoryInsert');
+            Route::get('/getCategory/{category}',           'getCategory')->name('getCategory');
+            Route::get('/category-edit/{category}',         'editCategory')->name('categoryEdit');
+            Route::get('/category-delete/{category}',       'destroyCategory')->name('categoryDelete');
+            Route::post('/category-update',                 'updateCategory')->name('categoryUpdate');
+        });
     });
