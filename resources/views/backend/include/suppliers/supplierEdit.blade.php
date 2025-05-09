@@ -11,32 +11,32 @@
                     <input type="text" name="id" id="supId" class="form-control">
                     @csrf
                     <div class="col-3 mb-3">
-                        <label for="companyInput" class="form-label">Company Name</label>
-                        <input type="text" name="company" id="companyInput" placeholder="Enter Here..." class="form-control">
+                        <label for="company" class="form-label">Company Name</label>
+                        <input type="text" name="company" id="Editcompany" placeholder="Enter Here..." class="form-control">
                         <div class="valid-feedback"> Looks good! </div>
                     </div>
 
                     <div class="col-3 mb-3">
                         <label for="name" class="form-label">Person Name</label>
-                        <input type="text" name="name" id="name" placeholder="Enter Here..." class="form-control">
+                        <input type="text" name="name" id="Editname" placeholder="Enter Here..." class="form-control">
                         <div class="valid-feedback"> Looks good! </div>
                     </div>
 
                     <div class="col-3 mb-3">
-                        <label for="emailInput" class="form-label">Email</label>
-                        <input type="text" name="email" id="emailInput" placeholder="Enter Here..." class="form-control">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" name="email" id="Editemail" placeholder="Enter Here..." class="form-control">
                         <div class="valid-feedback"> Looks good! </div>
                     </div>
                     
                     <div class="col-3 mb-3">
-                        <label for="phoneInput" class="form-label">Phone</label>
-                        <input type="text" name="phone" id="phoneInput" placeholder="Enter Here..." class="form-control">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="text" name="phone" id="Editphone" placeholder="Enter Here..." class="form-control">
                         <div class="valid-feedback"> Looks good! </div>
                     </div>
                     
                     <div class="col-9 mb-3">
-                        <label for="addressInput" class="form-label">Address</label>
-                        <input type="text" name="address" id="addressInput" placeholder="Enter address" class="form-control">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" name="address" id="address" placeholder="Enter address" class="form-control">
                         <div class="valid-feedback"> Looks good! </div>
                     </div>
 

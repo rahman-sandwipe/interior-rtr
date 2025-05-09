@@ -67,20 +67,43 @@ class SupplierController extends Controller
     /** Backend Supplier Edit */
     public function editSupplier(Supplier $supplier)
     {
-        return response()->json($supplier);
+        $data['supplier'] = $supplier;
+        return response()->json($data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function updateSupplier(Request $request, string $id)
+    /** Backend Supplier Update */
+    public function updateSupplier(Request $request)
     {
-        //
+        try{
+            $request->validate([
+                'company' => 'required|string|max:255',
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'phone' => 'required|string|max:255',
+                'status' => 'nullable|enum:active,inactive',
+            ]);
+            $supplier = Supplier::findOrFail($request->id);
+            $supplier->company = $request->company;
+            $supplier->name = $request->name;
+            $supplier->email = $request->email;
+            $supplier->phone = $request->phone;
+            $supplier->address = $request->address;
+            $supplier->status = $request->status;
+            $supplier->save();
+            flash()
+            ->option('position', 'bottom-right')
+            ->option('timeout', 2000)
+            ->success('Successfully Updated!');
+            return back();
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    /** Backend Supplier Delete */
     public function destroySupplier(Supplier $supplier)
     {
         try{
