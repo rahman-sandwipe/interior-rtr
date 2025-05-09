@@ -5,6 +5,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SupplierController;
 
     /*
     |--------------------------------------------------------------------------
@@ -40,5 +41,15 @@ use App\Http\Controllers\CategoryController;
             Route::get('/category-edit/{category}',         'editCategory')->name('categoryEdit');
             Route::get('/category-delete/{category}',       'destroyCategory')->name('categoryDelete');
             Route::post('/category-update',                 'updateCategory')->name('categoryUpdate');
+        });
+
+        /** Supplier API Routes */
+        Route::controller(SupplierController::class)->group(function(){
+            Route::get('/supplierList',                     'supplierList')->name('supplierList');
+            Route::post('/supplier-insert',                 'supplierInsert')->name('supplierInsert');
+            Route::get('/getSupplier/{supplier}',           'getSupplier')->name('getSupplier');
+            Route::get('/supplier-edit/{supplier}',         'editSupplier')->name('supplierEdit');
+            Route::post('/supplier-update',                 'updateSupplier')->name('supplierUpdate');
+            Route::get('/supplier-delete/{supplier}',       'destroySupplier')->name('supplierDelete');
         });
     });

@@ -62,8 +62,6 @@
     </div>
 
 </div> <!-- container -->
-
-</div>
 <script>
     $(document).ready(function() {
         $.ajax({

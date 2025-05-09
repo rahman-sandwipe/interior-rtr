@@ -9,9 +9,10 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\Auth\AuthenticateController;
-use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::controller(AuthenticateController::class)->middleware('guest')->group(fun
 
 Route::middleware('auth')->group(function () {
     Route::get('/categories',   [CategoryController::class, 'categoryPage'])->name('category.index'); /* Display category page */
+    Route::get('/suppliers',    [SupplierController::class, 'supplierPage'])->name('supplier.index'); /* Display supplier page */
 });
 
 
