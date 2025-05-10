@@ -10,6 +10,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\Auth\AuthenticateController;
@@ -45,4 +46,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/service',      [ServiceController::class,      'servicePage'])->name('service.index'); /* Display service page */
     Route::post('/logout',      [AuthenticateController::class, 'logout'])->name('logout');    /* Display dashboard page */
     Route::get('/banners',      [BannerController::class,      'bannerPage'])->name('banner.index'); /* Display banner page */
+    Route::get('/customers',    [CustomerController::class,    'customerPage'])->name('customer.index'); /* Display customer page */
 });

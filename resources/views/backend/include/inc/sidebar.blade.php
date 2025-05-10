@@ -38,6 +38,14 @@
                     <span class="badge bg-danger rounded">3</span>
                 </a>
             </li>
+            
+            <!-- Customers -->
+            <li class="side-nav-item">
+                <a href="{{ route('customer.index') }}" class="side-nav-link">
+                    <span class="menu-icon"><i data-lucide="airplay"></i></span>
+                    <span class="menu-text"> Customers </span>
+                </a>
+            </li>
 
             <!-- Suppliers -->
             <li class="side-nav-item">

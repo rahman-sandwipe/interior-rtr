@@ -2,63 +2,79 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManager;
+use Laravolt\Avatar\Facade as Avatar;
+use Intervention\Image\Drivers\Gd\Driver;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    /** customerPage */
+    public function customerPage()
     {
-        //
+        return view('backend.pages.customerPage');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    /** customerList */
+    public function customerList()
     {
-        //
+        $data['customers'] = Customer::latest()->get();
+        return response()->json($data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    /** customerInsert */
+    public function customerInsert(Request $request)
     {
-        //
+        $customerID = IdGenerator::generate(['table' => 'customers','field' => 'customer_id','length' => 10,'prefix' => 'CID',]);
+        Avatar::create($request->name)->save(public_path('/images/avatars/avatar'.$customerID.'.png')); // quality = 100
+        $avatar = 'images/avatars/avatar'.$customerID.'.png';
+        $data = $request->all();
+        $data['customer_id'] = $customerID;
+        $data['avatar'] = $avatar;
+        Customer::create($data);
+        return back()->with('success', 'Customer created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    /** customerDetails */
+    public function getCustomer(Customer $customer)
     {
-        //
+        return response()->json($customer);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    /** customerEdit */
+    public function editCustomer(Request $request, Customer $customer)
     {
-        //
+        return response()->json($customer);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    /** customerUpdate */
+    public function updateCustomer(Request $request, Customer $customer)
     {
-        //
+        if (!empty($customer->avatar) && file_exists(public_path($customer->avatar))) {
+            @unlink(public_path($customer->avatar));
+        }
+        $customer->update($request->all());
+        if ($request->hasFile('avatar')) {   
+            $manager = new ImageManager(new Driver());
+            $name_gen = uniqid().'.'.$request->file('avatar')->getClientOriginalExtension();
+            $img = $manager->read($request->file('avatar'));
+            $img = $img->resize(300, 300);
+            $img->save(base_path('public/images/avatars/customer'.$name_gen));
+            $save_url = 'images/avatars/customer'.$name_gen;
+            $customer->update(['avatar' => $save_url]);
+        }
+        return back()->with('success', 'Customer updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    /** customerDelete */
+    public function destroyCustomer(Customer $customer)
     {
-        //
+        if (!empty($customer->avatar) && file_exists(public_path($customer->avatar))) {
+            @unlink(public_path($customer->avatar));
+        }
+        $customer->delete();
+        return back()->with('success', 'Customer deleted successfully.');
     }
 }

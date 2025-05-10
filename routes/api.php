@@ -5,8 +5,10 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
+use App\Models\Customer;
 
     /*
     |--------------------------------------------------------------------------
@@ -75,5 +77,14 @@ use App\Http\Controllers\SupplierController;
             Route::get('/banner-edit/{banner}',             'editBanner')->name('bannerEdit');
             Route::post('/banner-update',                   'updateBanner')->name('bannerUpdate');
             Route::get('/banner-delete/{banner}',           'destroyBanner')->name('bannerDelete');
+        });
+
+        Route::controller(CustomerController::class)->group(function(){
+            Route::get('/customerList',                     'customerList')->name('customerList');
+            Route::post('/customer-insert',                 'customerInsert')->name('customerInsert');
+            Route::get('/getCustomer/{customer}',           'getCustomer')->name('getCustomer');
+            Route::get('/customer-edit/{customer}',         'editCustomer')->name('customerEdit');
+            Route::post('/customer-update/{customer}',      'updateCustomer')->name('customerUpdate');
+            Route::get('/customer-delete/{customer}',       'destroyCustomer')->name('customerDelete');
         });
     });
