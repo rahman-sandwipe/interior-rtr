@@ -19,20 +19,7 @@ use App\Http\Controllers\SupplierController;
     |
     */
 
-    Route::group(['middleware' => ['api']], function () {
-        Route::get('/emailList',                    [EmailController::class, 'emailList'])->name('emailList');
-        Route::post('/emailSend',                   [EmailController::class, 'emailSend'])->name('emailSend');
-        Route::get('/emailDetails/{contactMsg}',    [EmailController::class, 'emailDetails']);
-        Route::post('/emailReply/{contactMsg}',     [EmailController::class, 'emailReply']);
-        Route::delete('/emailDelete/{contactMsg}',  [EmailController::class, 'emailDelete']);
-
-        Route::get('/bannerList',                   [BannerController::class, 'bannerList']);
-        Route::get('/bannerDetails/{banner}',       [BannerController::class, 'bannerDetails']);
-        
-        Route::get('/getServices',                  [ServiceController::class, 'getServices']);
-        Route::get('/getService/{service}',         [ServiceController::class, 'getServiceDetails']);
-        Route::post('/service-insert',              [ServiceController::class, 'serviceInsert'])->name('serviceInsert');
-    
+    Route::group(['middleware' => ['api']], function () {        
         /** Product API Routes */
         Route::controller(ProductController::class)->group(function(){
             Route::get('/productList',                     'productList')->name('productList');
@@ -61,5 +48,32 @@ use App\Http\Controllers\SupplierController;
             Route::get('/category-edit/{category}',         'editCategory')->name('categoryEdit');
             Route::get('/category-delete/{category}',       'destroyCategory')->name('categoryDelete');
             Route::post('/category-update',                 'updateCategory')->name('categoryUpdate');
+        });
+
+        /** Email API Route */
+        Route::controller(EmailController::class)->group(function(){
+            Route::get('/emailList',                        'emailList')->name('emailList');
+            Route::post('/emailSend',                       'emailSend')->name('emailSend');
+            Route::get('/emailDetails/{contactMsg}',        'emailDetails');
+            Route::post('/emailReply/{contactMsg}',         'emailReply');
+            Route::delete('/emailDelete/{contactMsg}',      'emailDelete');
+        });
+
+        /** Service API Route */
+        Route::controller(ServiceController::class)->group(function(){
+            Route::get('/getServices',                      'getServices');
+            Route::get('/getService/{service}',             'getServiceDetails');
+            Route::post('/service-insert',                  'serviceInsert')->name('serviceInsert');
+        });
+
+        /** Banner API Route */
+        Route::controller(BannerController::class)->group(function(){
+            Route::get('/bannerDetails/{banner}',           'bannerDetails');
+            Route::get('/bannerList',                       'bannerList')->name('bannerList');
+            Route::post('/banner-insert',                   'bannerInsert')->name('bannerInsert');
+            Route::get('/getBanner/{banner}',               'getBanner')->name('getBanner');
+            Route::get('/banner-edit/{banner}',             'editBanner')->name('bannerEdit');
+            Route::post('/banner-update',                   'updateBanner')->name('bannerUpdate');
+            Route::get('/banner-delete/{banner}',           'destroyBanner')->name('bannerDelete');
         });
     });

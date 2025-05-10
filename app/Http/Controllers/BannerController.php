@@ -45,22 +45,6 @@ class BannerController extends Controller
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function store(Request $request) {
         $bd_id = IdGenerator::generate(['table'=>'banners', 'field'=>'bannerID', 'length'=>8, 'prefix'=>'BID']);
         $data = $request->all();
