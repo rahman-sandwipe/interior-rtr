@@ -23,7 +23,6 @@
                         <thead class="bg-light-subtle" >
                             <tr>
                                 <th class="text-uppercase text-muted">#ID || supplier ID</th>
-                                <th class="text-uppercase text-muted">Company</th>
                                 <th class="text-uppercase text-muted">Name</th>
                                 <th class="text-uppercase text-muted">Email</th>
                                 <th class="text-uppercase text-muted">Phone</th>
@@ -41,3 +40,34 @@
         </div> <!-- end col -->
     </div>
 </div> <!-- container -->
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: '/api/supplierList',
+            method: 'GET',
+            success: function(response) {
+                let rows = '';
+                response.suppliers.forEach(function(supplier) {
+                    rows += `<tr>
+                        <td>${supplier.id} || ${supplier.supplierID }</td>
+                        <td>${supplier.name}</td>
+                        <td>${supplier.email}</td>
+                        <td>${supplier.phone}</td>
+                        <td class="text-center text-capitalize" width="100">${supplier.status}</td>
+                        <td class="text-center" width="150">
+                            <button class="btn btn-primary btn-sm waves-effect waves-light edit-supplier" data-id="${supplier.id}">Edit</button>
+                            <button class="btn btn-primary btn-sm waves-effect waves-light view-supplier" data-id="${supplier.id}">View</button>
+                            <a href="/api/supplier-delete/${supplier.id}" class="btn btn-danger btn-sm waves-effect waves-light">Delete</a>
+                        </td>
+                    </tr>`;
+                });
+                $('#supplierTable tbody').html(rows);
+            },
+            error: function(err) {
+                alert('Error fetching suppliers');
+                console.error(err);
+            }
+        });
+    });
+</script>

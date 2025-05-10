@@ -38,7 +38,7 @@ use App\Models\Customer;
             Route::post('/supplier-insert',                 'supplierInsert')->name('supplierInsert');
             Route::get('/getSupplier/{supplier}',           'getSupplier')->name('getSupplier');
             Route::get('/supplier-edit/{supplier}',         'editSupplier')->name('supplierEdit');
-            Route::post('/supplier-update',                 'updateSupplier')->name('supplierUpdate');
+            Route::post('/supplier-update/{supplier}',      'updateSupplier')->name('supplierUpdate');
             Route::get('/supplier-delete/{supplier}',       'destroySupplier')->name('supplierDelete');
         });
         

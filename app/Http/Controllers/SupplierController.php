@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Supplier;
 use Exception;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManager;
+use Laravolt\Avatar\Facade as Avatar;
+use Intervention\Image\Drivers\Gd\Driver;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class SupplierController extends Controller
@@ -26,19 +29,23 @@ class SupplierController extends Controller
     public function supplierInsert(Request $request)
     {
         try{
-            $request->validate([
-                'company' => 'required|string|max:255|unique:suppliers',
-                'name' => 'required|string|max:255|unique:suppliers',
-                'email' => 'required|string|email|max:255|unique:suppliers',
-                'phone' => 'required|string|max:255|unique:suppliers',
-                'status' => 'nullable|enum:active,inactive',
-            ]);
             $supplierID = IdGenerator::generate([
                 'table' => 'suppliers',
                 'field' => 'supplierID',
                 'length' => 10,
                 'prefix' => 'SID'
             ]);
+            if ($request->hasFile('logo')) {
+                $manager = new ImageManager(new Driver());
+                $name_gen = $supplierID .'.'.$request->file('logo')->getClientOriginalExtension();
+                $img = $manager->read($request->file('logo'));
+                $img = $img->resize(300, 90);
+                $img->save(base_path('public/images/brands/brand_logo'.$name_gen));
+                $save_url = 'images/brands/brand_logo'.$name_gen;
+            }else{
+                Avatar::create($request->name)->save(public_path('/images/brands/brand_logo'.$supplierID.'.png')); // quality = 100
+                $save_url = 'images/brands/brand_logo'.$supplierID.'.png';
+            }
             Supplier::create([
                 'supplierID'    => $supplierID,
                 'company'       => $request['company'],
@@ -47,6 +54,7 @@ class SupplierController extends Controller
                 'phone'         => $request['phone'],
                 'address'       => $request['address'],
                 'status'        => $request['status'],
+                'logo'          => $save_url
             ]);
             flash()
             ->option('position', 'bottom-right')
@@ -67,40 +75,26 @@ class SupplierController extends Controller
     /** Backend Supplier Edit */
     public function editSupplier(Supplier $supplier)
     {
-        $data['supplier'] = $supplier;
-        return response()->json($data);
+        return response()->json($supplier);
     }
 
     /** Backend Supplier Update */
-    public function updateSupplier(Request $request)
+    public function updateSupplier(Request $request, Supplier $supplier)
     {
-        try{
-            $request->validate([
-                'company' => 'required|string|max:255',
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255',
-                'phone' => 'required|string|max:255',
-                'status' => 'nullable|enum:active,inactive',
-            ]);
-            $supplier = Supplier::findOrFail($request->id);
-            $supplier->company = $request->company;
-            $supplier->name = $request->name;
-            $supplier->email = $request->email;
-            $supplier->phone = $request->phone;
-            $supplier->address = $request->address;
-            $supplier->status = $request->status;
-            $supplier->save();
-            flash()
-            ->option('position', 'bottom-right')
-            ->option('timeout', 2000)
-            ->success('Successfully Updated!');
-            return back();
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ], 500);
+        if (!empty($supplier->logo) && file_exists(public_path($supplier->logo))) {
+            @unlink(public_path($supplier->logo));
         }
+        $supplier->update($request->all());
+        if ($request->hasFile('logo')) {   
+            $manager = new ImageManager(new Driver());
+            $name_gen = $supplier->supplierID .'.'.$request->file('logo')->getClientOriginalExtension();
+            $img = $manager->read($request->file('logo'));
+            $img = $img->resize(300, 90);
+            $img->save(base_path('public/images/brands/brand_logo'.$name_gen));
+            $save_url = 'images/brands/brand_logo'.$name_gen;
+            $supplier->update(['logo' => $save_url]);
+        }
+        return back()->with('success', 'supplier updated successfully.');
     }
 
     /** Backend Supplier Delete */
