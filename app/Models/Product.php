@@ -12,21 +12,16 @@ class Product extends Model
     protected $table = 'products';
 
     protected $fillable = [
-        'sku',
-        'category',
-        'title',
+        'category_id',
+        'supplier_id',
+        'name',
         'description',
-        'weight',
+        'price',
+        'cost',
         'quantity',
-        'stock',
-        'cost_price',
-        'saleing_price',
-        'tax',
-        'descount_type',
-        'descount',
-        'profit',
-        'images',
-        'visibility',
+        'image',
+        'status',
+        'barcode'    
     ];
 
     public function category() {

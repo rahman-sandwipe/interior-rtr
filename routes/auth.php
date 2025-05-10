@@ -38,8 +38,9 @@ Route::controller(AuthenticateController::class)->middleware('guest')->group(fun
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/categories',   [CategoryController::class, 'categoryPage'])->name('category.index'); /* Display category page */
+    Route::get('/products',     [ProductController::class, 'productPage'])->name('products.index'); /* Display product page */
     Route::get('/suppliers',    [SupplierController::class, 'supplierPage'])->name('supplier.index'); /* Display supplier page */
+    Route::get('/categories',   [CategoryController::class, 'categoryPage'])->name('category.index'); /* Display category page */
 });
 
 
@@ -65,8 +66,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/abouts',       [AboutsController::class,       'aboutsPage'])->name('about.index'); /* Display abouts page */
     Route::get('/contacts',     [ContactController::class,      'contactPage'])->name('contact.index'); /* Display contact page */
     Route::get('/service',      [ServiceController::class,      'servicePage'])->name('service.index'); /* Display service page */
-    
-    Route::resource('products', ProductController::class); /* Product resource route */
     
     
     Route::controller(BannerController::class)->group(function(){

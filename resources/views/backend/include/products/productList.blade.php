@@ -25,9 +25,13 @@
                     <table class="table table-hover text-nowrap" id="productTable">
                         <thead class="bg-light-subtle">
                             <tr>
-                                <th class="text-uppercase text-muted">#ID || Support ID</th>
-                                <th class="text-uppercase text-muted">Name</th>
-                                <th class="text-uppercase text-muted">Subject</th>
+                                <th class="text-uppercase text-muted">#ID || Barcode</th>
+                                <th class="text-uppercase text-muted">Title</th>
+                                <th class="text-uppercase text-muted">Category</th>
+                                <th class="text-uppercase text-muted">Supplier</th>
+                                <th class="text-uppercase text-muted">Qut</th>
+                                <th class="text-uppercase text-muted">Price</th>
+                                <th class="text-center text-uppercase text-muted">Status</th>
                                 <th class="text-center text-uppercase text-muted" width="150">Action</th>
                             </tr>
                         </thead> <!-- end table-head -->
@@ -37,32 +41,11 @@
                         </tbody>
                     </table>
                 </div>
-
-                <div class="card-footer">
-                    <div class="d-flex justify-content-end">
-                        <ul class="pagination mb-0 justify-content-center">
-                            <li class="page-item disabled">
-                                <a href="#" class="page-link"><i class="ri-arrow-left-double-line"></i></a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">1</a>
-                            </li>
-                            <li class="page-item active">
-                                <a href="#" class="page-link">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link"><i class="ri-arrow-right-double-line"></i></a>
-                            </li>
-                        </ul><!-- end pagination -->
-                    </div><!-- end flex -->
-                </div>
             </div> <!-- end card-->
         </div> <!-- end col -->
     </div>
 </div> <!-- container -->
+
 <script>
     $(document).ready(function() {
         $.ajax({
@@ -72,12 +55,21 @@
                 let rows = '';
                 response.products.forEach(function(product) {
                     rows += `<tr>
-                        <td>${product.id} || ${product.product_id}</td>
-                        <td>${product.name}</td>
-                        <td>${product.subject}</td>
+                        <td>${product.id} || ${product.barcode}</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <img src="${product.image}" alt=""  class="img-fluid rounded" width="60">
+                                <h6 class="fs-14 mb-0">${product.name}</h6>
+                            </div>
+                        </td>
+                        <td>${product.category?.name || 'No Category'}</td>
+                        <td>${product.supplier?.name || 'No Supplier'}</td>
+                        <td>${product.quantity}</td>
+                        <td>${product.price}</td>
+                        <td class="text-center text-capitalize" width="100">${product.status}</td>
                         <td class="text-center" width="150">
                             <button class="btn btn-primary btn-sm waves-effect waves-light view-product" data-id="${product.id}">View</button>
-                            <a href="/product/${product.id}" class="btn btn-danger btn-sm waves-effect waves-light">Delete</a>
+                            <a href="/product-delete/${product.id}" class="btn btn-danger btn-sm waves-effect waves-light">Delete</a>
                         </td>
                     </tr>`;
                 });
@@ -85,30 +77,6 @@
             },
             error: function(err) {
                 alert('Error fetching products');
-                console.error(err);
-            }
-        });
-    });
-
-    $(document).on('click', '.view-product', function() {
-        var productId = $(this).data('id');
-
-        $.ajax({
-            url: '/api/productDetails/' + productId,
-            method: 'GET',
-            success: function(response) {
-                $('#modalproductContent').html(`
-                    <p><strong>ID:</strong> ${response.id}</p>
-                    <p><strong>product ID:</strong> ${response.product_id}</p>
-                    <p><strong>Name:</strong> ${response.name}</p>
-                    <p><strong>Product:</strong> ${response.product}</p>
-                    <p><b>Message:</b> ${response.message}</p>
-                `);
-                var modal = new bootstrap.Modal(document.getElementById('productModal'));
-                modal.show();
-            },
-            error: function(err) {
-                alert('Failed to fetch product details.');
                 console.error(err);
             }
         });

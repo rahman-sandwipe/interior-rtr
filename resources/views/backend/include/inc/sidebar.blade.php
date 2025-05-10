@@ -30,6 +30,7 @@
                     <span class="badge bg-danger rounded">3</span>
                 </a>
             </li>
+            <!-- Products -->
             <li class="side-nav-item">
                 <a href="{{ route('products.index') }}" class="side-nav-link">
                     <span class="menu-icon"><i data-lucide="airplay"></i></span>
@@ -37,6 +38,16 @@
                     <span class="badge bg-danger rounded">3</span>
                 </a>
             </li>
+
+            <!-- Suppliers -->
+            <li class="side-nav-item">
+                <a href="{{ route('supplier.index') }}" class="side-nav-link">
+                    <span class="menu-icon"><i data-lucide="airplay"></i></span>
+                    <span class="menu-text"> Suppliers </span>
+                </a>
+            </li>
+
+            <!-- Categories -->
             <li class="side-nav-item">
                 <a href="{{ route('category.index') }}" class="side-nav-link">
                     <span class="menu-icon"><i data-lucide="airplay"></i></span>

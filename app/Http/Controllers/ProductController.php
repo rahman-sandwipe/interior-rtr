@@ -6,129 +6,84 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
-use Picqer\Barcode\BarcodeGeneratorHTML;
-use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ProductController extends Controller
 {
+    /** Frontend Pages */
     public function shop(){
         return view('frontend.pages.shopPages');
     }
 
-    public function index()
+    /** Backend Products Pages */
+    public function productPage()
     {
-        return view('backend.pages.productsPage');
+        $data['categories'] = Category::all();
+        $data['suppliers'] = Supplier::all();
+        return view('backend.pages.productsPage', $data);
     }
 
-    public function create()
-    {
-        $categories = Category::all();
-        $suppliers = Supplier::all();
-        return view('products.create', compact('categories', 'suppliers'));
+    /** Backend Product List */
+    public function productList() {
+        $data['products'] = Product::with('category', 'supplier')->get();
+        return response()->json($data);
     }
 
-    public function store(Request $request)
+    /** Backend Product Insert */
+    public function productInsert(Request $request)
     {
-        $validated = $request->validate([
-            'barcode' => 'nullable|unique:products',
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'cost' => 'nullable|numeric|min:0',
-            'quantity' => 'required|integer|min:0',
-            'category_id' => 'required|exists:categories,id',
-            'supplier_id' => 'nullable|exists:suppliers,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'is_active' => 'boolean'
+        // $request->dd($request);
+
+        if ($request->hasFile('image')) {
+            $manager = new ImageManager(new Driver());
+            $name_gen = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+            $image = $manager->read($request->file('image'));
+            $image = $image->resize(1000, 1000);
+            $image->save(base_path('public/images/products/product' . $name_gen));
+            $save_url = 'images/products/product' . $name_gen;
+        }
+        $barcodeID = IdGenerator::generate(['table'=>'products', 'field'=>'barcode', 'length'=>8, 'prefix'=>'PID']);
+        Product::create([
+            'barcode' => $barcodeID,
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'price' => $request['price'],
+            'cost' => $request['cost'],
+            'quantity' => $request['quantity'],
+            'image' => $request['image'],
+            'category_id' => $request['category_id'],
+            'supplier_id' => $request['supplier_id'],
+            'status' => $request['status'],
+            'image' => $save_url
         ]);
 
-        // Generate barcode if not provided
-        if (empty($validated['barcode'])) {
-            $validated['barcode'] = $this->generateUniqueBarcode();
-        }
-
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('products', 'public');
-        }
-
-        Product::create($validated);
-
-        return redirect()->route('products.index')->with('success', 'Product created successfully.');
+        return back()->with('success', 'Product created successfully.');
     }
 
-    public function show(Product $product)
-    {
-        return view('products.show', compact('product'));
+    /** Backend getProduct */
+    public function getProduct(Product $product) {
+        $product = $product->load('category', 'supplier');
+        return response()->json($product);
+
     }
 
-    public function edit(Product $product)
-    {
-        $categories = Category::all();
-        $suppliers = Supplier::all();
-        return view('products.edit', compact('product', 'categories', 'suppliers'));
+    /** Backend Product Edit */
+    public function productEdit(Product $product) {
+        $data['editProduct'] = Product::with('category', 'supplier')->find($product->id);
+        return response()->json($data);
     }
 
-    public function update(Request $request, Product $product)
-    {
-        $validated = $request->validate([
-            'barcode' => 'nullable|unique:products,barcode,'.$product->id,
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'cost' => 'nullable|numeric|min:0',
-            'quantity' => 'required|integer|min:0',
-            'category_id' => 'required|exists:categories,id',
-            'supplier_id' => 'nullable|exists:suppliers,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'is_active' => 'boolean'
-        ]);
-
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($product->image) {
-                Storage::disk('public')->delete($product->image);
+    public function destroyProduct(Product $product) {
+        $data['product'] = Product::find($product->id);
+        if ($data['product']) {
+            if(file_exists($product->image)) {
+                $product->deleteImage();
             }
-            $validated['image'] = $request->file('image')->store('products', 'public');
+            $data['product']->delete();
+            return response()->json(['success' => 'Product deleted successfully.']);
         }
-
-        $product->update($validated);
-
-        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
-    }
-
-    public function destroy(Product $product)
-    {
-        // Prevent deletion if product has sales
-        if ($product->orderItems()->exists()) {
-            return back()->with('error', 'Cannot delete product with existing sales records.');
-        }
-
-        // Delete image if exists
-        if ($product->image) {
-            Storage::disk('public')->delete($product->image);
-        }
-
-        $product->delete();
-
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
-    }
-
-    public function generateBarcode(Product $product)
-    {
-        $generator = new BarcodeGeneratorHTML();
-        $barcode = $generator->getBarcode($product->barcode, $generator::TYPE_CODE_128);
-        
-        return view('products.barcode', compact('product', 'barcode'));
-    }
-
-    protected function generateUniqueBarcode()
-    {
-        do {
-            $barcode = mt_rand(100000000000, 999999999999);
-        } while (Product::where('barcode', $barcode)->exists());
-
-        return $barcode;
+        return response()->json(['error' => 'Product not found.'], 404);
     }
 }

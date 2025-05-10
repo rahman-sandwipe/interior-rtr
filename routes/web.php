@@ -6,7 +6,6 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
-use App\Models\Product;
 
 Route::controller(HomeController::class)->group(function() {
     Route::get('/',                 'index')->name('home');

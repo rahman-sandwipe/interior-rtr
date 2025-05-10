@@ -5,6 +5,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 
     /*
@@ -32,15 +33,14 @@ use App\Http\Controllers\SupplierController;
         Route::get('/getService/{service}',         [ServiceController::class, 'getServiceDetails']);
         Route::post('/service-insert',              [ServiceController::class, 'serviceInsert'])->name('serviceInsert');
     
-    
-        /** Category API Routes */
-        Route::controller(CategoryController::class)->group(function(){
-            Route::get('/categoryList',                     'categoryList')->name('categoryList');
-            Route::post('/category-insert',                 'categoryInsert')->name('categoryInsert');
-            Route::get('/getCategory/{category}',           'getCategory')->name('getCategory');
-            Route::get('/category-edit/{category}',         'editCategory')->name('categoryEdit');
-            Route::get('/category-delete/{category}',       'destroyCategory')->name('categoryDelete');
-            Route::post('/category-update',                 'updateCategory')->name('categoryUpdate');
+        /** Product API Routes */
+        Route::controller(ProductController::class)->group(function(){
+            Route::get('/productList',                     'productList')->name('productList');
+            Route::post('/product-insert',                 'productInsert')->name('productInsert');
+            Route::get('/getProduct/{product}',            'getProduct')->name('getProduct');
+            Route::get('/product-edit/{product}',          'editProduct')->name('productEdit');
+            Route::post('/product-update',                 'updateProduct')->name('productUpdate');
+            Route::get('/product-delete/{product}',        'destroyProduct')->name('productDelete');
         });
 
         /** Supplier API Routes */
@@ -51,5 +51,15 @@ use App\Http\Controllers\SupplierController;
             Route::get('/supplier-edit/{supplier}',         'editSupplier')->name('supplierEdit');
             Route::post('/supplier-update',                 'updateSupplier')->name('supplierUpdate');
             Route::get('/supplier-delete/{supplier}',       'destroySupplier')->name('supplierDelete');
+        });
+        
+        /** Category API Routes */
+        Route::controller(CategoryController::class)->group(function(){
+            Route::get('/categoryList',                     'categoryList')->name('categoryList');
+            Route::post('/category-insert',                 'categoryInsert')->name('categoryInsert');
+            Route::get('/getCategory/{category}',           'getCategory')->name('getCategory');
+            Route::get('/category-edit/{category}',         'editCategory')->name('categoryEdit');
+            Route::get('/category-delete/{category}',       'destroyCategory')->name('categoryDelete');
+            Route::post('/category-update',                 'updateCategory')->name('categoryUpdate');
         });
     });

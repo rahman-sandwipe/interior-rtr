@@ -22,9 +22,10 @@ return new class extends Migration
             $table->decimal('cost', 10, 2)->nullable();
             $table->integer('quantity')->default(0);
             $table->string('image')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
 
+            // Foreign keys (optional but recommended)
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
         });
