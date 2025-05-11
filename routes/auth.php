@@ -12,6 +12,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\Auth\AuthenticateController;
 
@@ -36,15 +37,16 @@ Route::controller(AuthenticateController::class)->middleware('guest')->group(fun
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard',    [DashboardController::class, 'dashboard'])->name('dashboard'); /* Display dashboard page */
-    Route::get('/products',     [ProductController::class, 'productPage'])->name('products.index'); /* Display product page */
-    Route::get('/suppliers',    [SupplierController::class, 'supplierPage'])->name('supplier.index'); /* Display supplier page */
-    Route::get('/categories',   [CategoryController::class, 'categoryPage'])->name('category.index'); /* Display category page */
-    Route::get('/emails',       [EmailController::class,        'emailPage'])->name('email.index'); /* Display email page */
-    Route::get('/abouts',       [AboutsController::class,       'aboutsPage'])->name('about.index'); /* Display abouts page */
-    Route::get('/contacts',     [ContactController::class,      'contactPage'])->name('contact.index'); /* Display contact page */
-    Route::get('/service',      [ServiceController::class,      'servicePage'])->name('service.index'); /* Display service page */
-    Route::post('/logout',      [AuthenticateController::class, 'logout'])->name('logout');    /* Display dashboard page */
-    Route::get('/banners',      [BannerController::class,      'bannerPage'])->name('banner.index'); /* Display banner page */
-    Route::get('/customers',    [CustomerController::class,    'customerPage'])->name('customer.index'); /* Display customer page */
+    Route::get('/dashboard',    [DashboardController::class,        'dashboard'])->name('dashboard'); /* Display dashboard page */
+    Route::get('/products',     [ProductController::class,          'productPage'])->name('products.index'); /* Display product page */
+    Route::get('/suppliers',    [SupplierController::class,         'supplierPage'])->name('supplier.index'); /* Display supplier page */
+    Route::get('/categories',   [CategoryController::class,         'categoryPage'])->name('category.index'); /* Display category page */
+    Route::get('/emails',       [EmailController::class,            'emailPage'])->name('email.index'); /* Display email page */
+    Route::get('/abouts',       [AboutsController::class,           'aboutsPage'])->name('about.index'); /* Display abouts page */
+    Route::get('/contacts',     [ContactController::class,          'contactPage'])->name('contact.index'); /* Display contact page */
+    Route::get('/service',      [ServiceController::class,          'servicePage'])->name('service.index'); /* Display service page */
+    Route::post('/logout',      [AuthenticateController::class,     'logout'])->name('logout');    /* Display dashboard page */
+    Route::get('/banners',      [BannerController::class,           'bannerPage'])->name('banner.index'); /* Display banner page */
+    Route::get('/customers',    [CustomerController::class,         'customerPage'])->name('customer.index'); /* Display customer page */
+    Route::get('/inventories',  [InventoryController::class,        'inventoryPage'])->name('inventory.index'); /* Display inventory page */
 });

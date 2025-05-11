@@ -39,6 +39,14 @@
                 </a>
             </li>
             
+            <!-- Inventory -->
+            <li class="side-nav-item">
+                <a href="{{ route('inventory.index') }}" class="side-nav-link">
+                    <span class="menu-icon"><i data-lucide="airplay"></i></span>
+                    <span class="menu-text"> Inventory </span>
+                </a>
+            </li>
+            
             <!-- Customers -->
             <li class="side-nav-item">
                 <a href="{{ route('customer.index') }}" class="side-nav-link">

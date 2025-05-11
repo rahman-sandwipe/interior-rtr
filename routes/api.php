@@ -3,14 +3,25 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\InventoryController;
 
 /* ----------------- | API Routes | ----------------- */
-Route::group(['middleware' => ['api']], function () {        
+Route::group(['middleware' => ['api']], function () {
+    /** Inventory API Routes */
+    Route::controller(InventoryController::class)->group(function(){
+        Route::get('/inventoryList',                     'inventoryList')->name('inventoryList');
+        Route::post('/inventory-insert',                 'inventoryInsert')->name('inventoryInsert');
+        Route::get('/getInventory/{inventory}',          'getInventory')->name('getInventory');
+        Route::get('/inventory-edit/{inventory}',        'editInventory')->name('inventoryEdit');
+        Route::post('/inventory-update',                 'updateInventory')->name('inventoryUpdate');
+        Route::get('/inventory-delete/{inventory}',      'destroyInventory')->name('inventoryDelete');
+    });
+
     /** Product API Routes */
     Route::controller(ProductController::class)->group(function(){
         Route::get('/productList',                     'productList')->name('productList');
