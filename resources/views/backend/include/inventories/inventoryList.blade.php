@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="table-responsive p-2">
-                    <table class="table table-hover text-nowrap" id="InventoryTable">
+                    <table class="table table-hover text-nowrap" id="inventoryTable">
                         <thead class="bg-light-subtle">
                             <tr>
                                 <th class="text-uppercase text-muted">#ID || Barcode</th>
@@ -51,16 +51,17 @@
             method: 'GET',
             success: function(response) {
                 let rows = '';
-                response.Inventories.forEach(function(inventory) {
+                response.inventories.forEach(function(inventory) {
                     rows += `<tr>
-                        <td>${inventory.id} || ${inventory.barcode}</td>
-                        <td>${inventory.type}</td>
+                        <td>${inventory.id} || ${inventory.product.barcode}</td>
+                        <td class="text-capitalize">${inventory.product.name || 'No Product Name'}</td>
                         <td>${inventory.quantity}</td>
+                        <td>${inventory.type}</td>
                         <td>${inventory.remarks}</td>
-                        
                         <td class="text-center" width="150">
                             <button class="btn btn-primary btn-sm waves-effect waves-light view-inventory" data-id="${inventory.id}">View</button>
-                            <a href="/inventory-delete/${inventory.id}" class="btn btn-danger btn-sm waves-effect waves-light">Delete</a>
+                            <button class="btn btn-primary btn-sm waves-effect waves-light edit-inventory" data-id="${inventory.id}">Edit</button>
+                            <a href="/api/inventory-delete/${inventory.id}" class="btn btn-danger btn-sm waves-effect waves-light">Delete</a>
                         </td>
                     </tr>`;
                 });

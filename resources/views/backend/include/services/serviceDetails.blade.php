@@ -16,3 +16,41 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).on('click', '.view-service', function() {
+        var serviceId = $(this).data('id');
+
+        $.ajax({
+            url: '/api/getService/' + serviceId,
+            method: 'GET',
+            success: function(response) {
+                $('#modalServiceContent').html(`
+                    <p><strong>service ID:</strong> ${response.service_id }</p>
+                    <p><strong>Title:</strong> ${response.title}</p>
+                    <p><strong>Description:</strong> ${response.description}</p>
+                    <div class="d-flex align-items-center">
+                        <img src="${response.img}" alt="${response.title}" class="img-fluid" width="450">
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <p><strong>Visibility:</strong> ${response.visibility}</p>
+                        </div>
+                        <div class="col-4">
+                            <p><strong>Price:</strong> ${response.price}</p>
+                        </div>
+                        <div class="col-4">
+                            <p><strong>Duration:</strong> ${response.duration}</p>
+                        </div>
+                    </div>
+                `);
+                var modal = new bootstrap.Modal(document.getElementById('serviceModal'));
+                modal.show();
+            },
+            error: function(err) {
+                alert('Failed to fetch service details.');
+                console.error(err);
+            }
+        });
+    });
+</script>

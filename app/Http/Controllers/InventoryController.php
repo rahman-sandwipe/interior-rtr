@@ -19,7 +19,7 @@ class InventoryController extends Controller
     /**  inventoryList  */
     public function inventoryList()
     {
-        $data['inventories'] = Inventory::all();
+        $data['inventories'] = Inventory::with('product')->get();
         return response()->json($data);
     }
 
@@ -33,11 +33,11 @@ class InventoryController extends Controller
             'type' => 'required',
         ]);
         Inventory::create([
+            'user_id' => Auth::user()->id,
             'product_id' => $request->product_id,
             'quantity' => $request->quantity,
             'remarks' => $request->remarks,
             'type' => $request->type,
-            'user_id' => Auth::user() ? Auth::user()->id : null // or some default user ID
         ]);
         return back()->with('success', 'Inventory created successfully.');
     }
@@ -45,15 +45,15 @@ class InventoryController extends Controller
     /**  getInventory  */
     public function getInventory(Inventory $inventory)
     {
-        $data['inventory'] = Inventory::find($inventory->id);
-        return response()->json($data);
+        $inventory = $inventory->load('product');
+        return response()->json($inventory);
     }
 
     /**  editInventory  */
     public function editInventory(Inventory $inventory)
     {
-        $data['editInventory'] = Inventory::find($inventory->id);
-        return response()->json($data);
+        $inventory = $inventory->load('product');
+        return response()->json($inventory);
     }
 
     /**  updateInventory  */
